@@ -6,17 +6,18 @@ const expresshbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
 const spaceNew = require("./scripts/scrape");
+const Headline = require('./models/headline');
 
 
 
 //MiddleWare
-app.use(express.static(path.join( __dirname +'/public')));
+app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 //HandleBars
 
-app.engine('handlebars', expresshbs({defaultLayout:"main"}));
+app.engine('handlebars', expresshbs({ defaultLayout: "main" }));
 app.set('view engine', 'handlebars');
 
 //Mongoose 
@@ -25,20 +26,46 @@ mongoose.connect(db, { useNewUrlParser: true }, (err) => { if (err) { throw err 
 
 
 app.get('/', (req, res) => {
-    // res.header("content-type: text/html");
-    // res.render('home' , {info : news});
     res.render('home');
 });
-app.get('/api/scrapeData/', (req,res)=>{
-    spaceNew(function(news){
+app.get('/api/scrapeData/', (req, res) => {
+    spaceNew(function (news) {
         console.log("spaceNew ->", news)
         res.json(news)
     })
 })
 app.get('/saved', (req, res) => {
+    Headline.find().then((broughtBack) => {
+        const articleData = []
+        for(x in broughtBack){
+            articleData.push(broughtBack[x])
+        }
+        console.log("heres what I got " + broughtBack)
+        res.render('saved', {news : articleData })
+    })
+});
+//CREATE
+app.post("/api/add/book", (req, res) => {
+    const incoming = req.body;
+    const article = new Headline(incoming);
+    // console.log(incoming);
+    article.save((error) => {
+        if (error) console.log(error);
+        const saveStatus = (error) ? console.log(error) : "saved"
+        console.log(saveStatus)
+        if (saveStatus === "saved") {
+            res.send(article + " was added.").status(200)
+        }
+        else {
+            res.send(error)
+        }
+    });
 
-    res.render('saved')
-})
+
+
+
+});
+
 
 const route = require("./config/routes");
 // app.use(route)

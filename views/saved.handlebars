@@ -1,4 +1,21 @@
 <h1>Your Saved Articles</h1>
 
-<script src="../../assets/javascript/saved.js"></script>
+ <div class="container">
+        <div class="row">
 
+            {{#each news}}
+
+            <div class="card col-md-6" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{newsHeadline}}</h5>
+                    {{!-- <h6 class="card-subtitle mb-2 text-muted">Student current grade is a {{this.gradeAvg}}</h6> --}}
+                    <p{{this.summary}}></p>
+                    <a href="#" class="card-link btn" href={{this.link}}="deleteBtn"
+                        style="background-color: darkblue; color:white">Read More</a>
+                   
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+<script src="../../assets/javascript/saved.js"></script>

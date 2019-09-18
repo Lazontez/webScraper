@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema();
 
-const headlineSchema = new Schema({
+const headlineSchema = new mongoose.Schema({
     newsHeadLine: {
         type: String,
         required: true,
@@ -13,13 +13,13 @@ const headlineSchema = new Schema({
     },
     summary: {
         type: String,
-        require: true
+        required: true
     },
-    saved: {
-        type: Boolean,
-        default: false
-    },
-    date : String
+    // saved: {
+    //     type: Boolean,
+    //     default: false
+    // },
+    // date : String
 });
 
 const Headline = mongoose.model("headline", headlineSchema);

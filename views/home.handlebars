@@ -41,7 +41,7 @@
                 let card = $("<div>");
                 card.attr('class', 'card');
                 card.css({
-                    "margin":"10px 0px"
+                    "margin": "10px 0px"
                 })
                 let cardHeader = $('<h5>');
                 cardHeader.attr('class', 'card-header');
@@ -49,10 +49,10 @@
                 card.prepend(cardHeader);
                 let cardBody = $('<div>');
                 cardBody.attr('class', 'card-body');
-                
+
                 let cardTitle = $('<h5>');
                 cardTitle.attr('class', 'card-title');
-                
+
                 cardBody.prepend(cardTitle);
                 let cardText = $("<p>");
                 cardText.html(description);
@@ -61,19 +61,23 @@
                 let anchorTag = $('<a>');
                 anchorTag.attr({
                     "class": 'btn btn-primary',
-                    "href": link ,
-                    "target":"blank"
+                    "href": link,
+                    "target": "blank",
+
 
                 });
                 anchorTag.css({
-                    "margin":"5px"
+                    "margin": "5px"
                 })
                 anchorTag.html('Read More');
                 cardBody.append(anchorTag);
                 let saveBtn = $('<button>');
                 saveBtn.attr({
                     "class": 'btn btn-success saveBtn',
-                    
+                    "header": header,
+                    "link": link,
+                    "description": description
+
 
                 });
                 saveBtn.html('Save Article');
@@ -82,11 +86,34 @@
                 $('.results').prepend(card);
             };
 
+            $(".saveBtn").click((event) => {
+                event.preventDefault();
+                let linkSV = event.target.attributes[2].value
+                let descriptionSV = event.target.attributes[3].value
+                let headerSV = event.target.attributes[1].value
+                let article = {
+                    "newsHeadLine": headerSV,
+                    "link": linkSV ,
+                    "summary": descriptionSV
+                    
+                }
+                
+                console.log("Header: "+headerSV)
+                console.log("Description: "+descriptionSV)
+                console.log("Link: "+linkSV)
+
+
+    
+                $.post("/api/add/book" , article , function(res){
+                    console.log(res)
+                })
+
+
+
+            });
         });
     });
-    $(".saveBtn").click((event)=>{
-        event.preventDefault()
-        console.log("save button clicked")
-    });
+
+
 
 </script>
