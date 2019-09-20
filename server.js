@@ -36,12 +36,13 @@ app.get('/api/scrapeData/', (req, res) => {
 })
 app.get('/saved', (req, res) => {
     Headline.find().then((broughtBack) => {
-        const articleData = []
-        for(x in broughtBack){
-            articleData.push(broughtBack[x])
-        }
-        console.log("heres what I got " + broughtBack)
-        res.render('saved', {news : articleData })
+        // let articleData = []
+        // for(x in broughtBack){
+        //     articleData.push(broughtBack[x])
+        // }
+        // console.log("heres what I got " + broughtBack)
+        // console.log(broughtBack);
+        res.render('saved', {news : broughtBack })
     })
 });
 //CREATE

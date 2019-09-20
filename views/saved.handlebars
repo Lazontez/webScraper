@@ -3,14 +3,13 @@
  <div class="container">
         <div class="row">
 
-            {{#each news}}
+            {{#each news as |ev|}}
 
             <div class="card col-md-6" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">{{newsHeadline}}</h5>
-                    {{!-- <h6 class="card-subtitle mb-2 text-muted">Student current grade is a {{this.gradeAvg}}</h6> --}}
-                    <p{{this.summary}}></p>
-                    <a href="#" class="card-link btn" href={{this.link}}="deleteBtn"
+                    <h5 class="card-title">{{ev.newsHeadLine}}</h5>
+                    <p>{{ev.summary}}</p>
+                    <a  class="card-link btn" href={{ev.link}} id="deleteBtn"
                         style="background-color: darkblue; color:white">Read More</a>
                    
                 </div>
