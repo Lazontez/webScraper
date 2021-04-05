@@ -41,7 +41,7 @@ app.get('/saved', (req, res) => {
         //     articleData.push(broughtBack[x])
         // }
         // console.log("heres what I got " + broughtBack)
-        // console.log(broughtBack);
+        console.log(broughtBack);
         res.render('saved', {news : broughtBack })
     })
 });
